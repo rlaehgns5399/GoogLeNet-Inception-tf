@@ -6,9 +6,10 @@
 - Architecture of GoogLeNet from the paper:
 ![googlenet](fig/arch.png)
 
-## Requirements
-- Python 3.3+
-- [TensorFlow 1.9+](https://www.tensorflow.org/)
+## My Computer Specifications
+- Anaconda with Python 3.5
+- [TensorFlow-gpu 1.11+](https://www.tensorflow.org/)
+- CUDA 9
 - [Numpy](http://www.numpy.org/)
 - [Scipy](https://www.scipy.org/)
 
