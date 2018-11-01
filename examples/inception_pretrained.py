@@ -14,7 +14,7 @@ sys.path.append('../')
 import loader as loader
 from src.nets.googlenet import GoogLeNet
 
-PRETRINED_PATH = '/home/qge2/workspace/data/pretrain/inception/googlenet.npy'
+PRETRINED_PATH = 'C:/tensorflow_workspace/git/GoogLeNet-Inception-tensorflow/train/googlenet.npy'
 DATA_PATH = '../data/'
 IM_CHANNEL = 3
 
@@ -60,7 +60,7 @@ def test_pre_trained():
                 print('===============================')
                 print('[image]: {}'.format(file_name))
                 for i in range(5):
-                    print('{}: probability: {:.02f}, label: {}'
+                    print('{}: probability: {:.05f}, label: {}'
                           .format(i+1, re_prob[i], label_dict[re_label[i]]))
 
 if __name__ == "__main__":

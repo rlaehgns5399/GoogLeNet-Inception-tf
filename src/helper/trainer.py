@@ -83,7 +83,7 @@ class Trainer(object):
             loss_sum += loss
             acc_sum += acc
 
-            if step % 100 == 0:
+            if step % 100 == 0 or step == 1:
                 display(self.global_step,
                     step,
                     [loss_sum, acc_sum],

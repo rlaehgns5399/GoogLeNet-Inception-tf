@@ -186,7 +186,8 @@ def unpickle(file):
         dict = pickle.load(fo, encoding='bytes')
     image = dict[b'data']
     labels = dict[b'labels']
-
+    # index = dict[b'indices']
+	
     r = image[:,:32*32].reshape(-1,32,32)
     g = image[:,32*32: 2*32*32].reshape(-1,32,32)
     b = image[:,2*32*32:].reshape(-1,32,32)
@@ -194,4 +195,3 @@ def unpickle(file):
     image = np.stack((r,g,b),axis=-1)
 
     return {'image': image.astype(float), 'label': labels}
-
