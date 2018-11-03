@@ -1,6 +1,7 @@
 import cv2
 import os
 import argparse
+import numpy as np
 from skimage.measure import compare_ssim
 
 parser = argparse.ArgumentParser()
@@ -49,6 +50,42 @@ def SSIM(img1, img2):
         print("SSIM: {}".format(ssim))
     return ssim
 
+def ORB(img1, img2):
+    res = None
+    orb = cv2.ORB_create()
+
+    kp1, des1 = orb.detectAndCompute(img1, None)
+    kp2, des2 = orb.detectAndCompute(img2, None)
+
+    bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
+    matches = bf.match(des1, des2)
+
+    matches = sorted(matches, key=lambda x:x.distance)
+    res = cv2.drawMatches(img1, kp1, img2, kp2, matches[:30], res, flags=0)
+
+    if args.debug == "Y":
+        cv2.imshow('Feature Matching(ORB)', res)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+
+def SIFT(img1, img2):
+    res = None
+    sift = cv2.xfeatures2d.SIFT_create()
+
+    kp1, des1 = sift.detectAndCompute(img1, None)
+    kp2, des2 = sift.detectAndCompute(img2, None)
+
+    bf = cv2.BFMatcher(cv2.NORM_L2, crossCheck=True)
+    matches = bf.match(des1, des2)
+
+    matches = sorted(matches, key=lambda x:x.distance)
+    res = cv2.drawMatches(img1, kp1, img2, kp2, matches[:30], res, flags=0)
+
+    if args.debug == "Y":
+        cv2.imshow('Feature Matching(SIFT)', res)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+
 while(video.isOpened()):
     if ret != False:
         count += 1
@@ -65,7 +102,9 @@ while(video.isOpened()):
                 image = compare_image
                 grayOrigin = grayCompare
         elif args.method == "ORB":
-            print("")
+            ORB(grayOrigin, grayCompare)
+        elif args.method == "SIFT":
+            SIFT(grayOrigin, grayCompare)
     else:
         break
 
