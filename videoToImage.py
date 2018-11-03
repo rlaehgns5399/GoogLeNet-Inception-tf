@@ -58,7 +58,7 @@ while(video.isOpened()):
 
         if args.method == "SSIM":
             score = SSIM(grayOrigin, grayCompare)
-            if score <= tolerance:
+            if score <= float(args.tolerance):
                 cv2.imwrite(os.path.join(folder_name, "frame" + str(count) + ".jpg"), image)
                 if args.debug == "Y":
                     print("The origin is changed to frame " + str(count) + "/" + str(length));
