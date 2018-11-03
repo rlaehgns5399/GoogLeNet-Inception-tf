@@ -5,10 +5,10 @@ import numpy as np
 from skimage.measure import compare_ssim
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--file")
-parser.add_argument("--method", default="SSIM")
-parser.add_argument("--debug", default="Y")
-parser.add_argument("--tolerance", default=0.4)
+parser.add_argument("--file", help="Video file i.e) xyz.mp4")
+parser.add_argument("--method", help="defines method. SSIM: simple & fast.ORB: SIFT: FLANN: experimental. you need to install opencv-python, opencv-contrib-python 3.4.2.16. If you want to show next image, press any in keyboard. not click <close> button. it occurs infinte loop",default="SSIM")
+parser.add_argument("--debug", help="if Y, shows print. otherwise: dont show anything. default: Y", default="Y")
+parser.add_argument("--tolerance", help="If you use SSIM, defines tolerance. default: 0.4", default=0.4)
 args = parser.parse_args()
 
 folder_name = "images_" + args.file
@@ -42,7 +42,8 @@ if video.isOpened():
     ret, image = video.read()
     grayOrigin = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-    os.makedirs(os.path.join(folder_name))
+    if not os.path.isdir(os.path.join(folder_name)):
+        os.makedirs(os.path.join(folder_name))
 
 def SSIM(img1, img2):
     (ssim, diff) = compare_ssim(img1, img2, full=True)
